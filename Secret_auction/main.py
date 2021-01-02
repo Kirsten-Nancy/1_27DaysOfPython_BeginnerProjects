@@ -1,11 +1,12 @@
 import art
 import os
+import pprint
 
-print(art.logo)
-print("Welcome to the Secret auction program")
 
 auction_records = {}
 while True:
+    print(art.logo)
+    print("Welcome to the Secret auction program")
     name = input("What's your name? ")
     bid = int(input("What's your bid: Ksh "))
     auction_records[name] = bid
@@ -17,7 +18,8 @@ while True:
         os.system('cls')
         break
 
-print(auction_records)
+pprint.pprint(auction_records)
+
 highest_bid = 0
 highest_bid_name = ''
 for name in auction_records:
