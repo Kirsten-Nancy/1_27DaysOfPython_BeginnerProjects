@@ -1,1 +1,1 @@
-Learning python by building 100 projects
+Learning Python by building 100 projects
