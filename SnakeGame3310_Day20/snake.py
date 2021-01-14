@@ -1,10 +1,12 @@
 from turtle import Turtle
 
+# Sake class has several turtles
 class Snake:
     def __init__(self):
         self.snake_segments = []
         self.colors = ["red", "blue", "white"]
         self.create_snake()
+        self.snake_head = self.snake_segments[0]
 
     def create_snake(self):
         # They are three instances
@@ -21,17 +23,21 @@ class Snake:
             position = self.snake_segments[i - 1].position()
             self.snake_segments[i].goto(position)
 
-        self.snake_segments[0].fd(20)
-        # self.snake_segments[0].left(90)
+        self.snake_head.fd(20)
 
+    # The conditional checks to prevent the snake from moving in both directions
     def up(self):
-        self.snake_segments[0].setheading(90)
+        if self.snake_head.heading() != 270:
+            self.snake_head.setheading(90)
 
     def down(self):
-        self.snake_segments[0].setheading(270)
+        if self.snake_head.heading() != 90:
+            self.snake_head.setheading(270)
 
     def right(self):
-        self.snake_segments[0].setheading(0)
+        if self.snake_head.heading() != 180:
+            self.snake_head.setheading(0)
 
     def left(self):
-        self.snake_segments[0].setheading(180)
+        if self.snake_head.heading() != 0:
+            self.snake_head.setheading(180)
