@@ -54,4 +54,14 @@ for i in range(360):
     my_turtle.pensize(5)
     spirograph(i)
 
+# Different method
+def spirograph2(gap_size):
+    for _ in range(360//gap_size):
+        my_turtle.pencolor(random_colors())
+        my_turtle.circle(100)
+        print(my_turtle.setheading(my_turtle.heading() + gap_size))
+
+
+spirograph2(5)
+
 game_screen.exitonclick()
