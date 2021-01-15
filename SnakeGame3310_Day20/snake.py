@@ -1,29 +1,37 @@
 from turtle import Turtle
 
-# Sake class has several turtles
+SNAKE_START_POSITIONS = [(0.00, 0.00), (-10.00, 0.00), (-20.00, 0.00)]
+
+# Snake class has several turtles
 class Snake:
     def __init__(self):
         self.snake_segments = []
-        self.colors = ["red", "blue", "white"]
         self.create_snake()
         self.snake_head = self.snake_segments[0]
 
     def create_snake(self):
-        # They are three instances
-        for i in range(0, 3):
-            snake = Turtle(shape="square")
-            snake.penup()
-            snake.goto(i * -20, 0)
-            snake.color(self.colors[i])
-            print(snake.pos())
-            self.snake_segments.append(snake)
+        # snake positions
+        for position in SNAKE_START_POSITIONS:
+            self.add_snake_segment(position)
+
+    def add_snake_segment(self, new_pos):
+        snake = Turtle(shape="square")
+        snake.shapesize(stretch_len=0.5, stretch_wid=0.5)
+        snake.penup()
+        snake.goto(new_pos)
+        snake.color('white')
+        print(snake.pos())
+        self.snake_segments.append(snake)
+
+    def extend_snake(self):
+        self.add_snake_segment(self.snake_segments[-1].position())
 
     def move(self):
         for i in range(len(self.snake_segments) - 1, 0, -1):
             position = self.snake_segments[i - 1].position()
             self.snake_segments[i].goto(position)
 
-        self.snake_head.fd(20)
+        self.snake_head.fd(10)
 
     # The conditional checks to prevent the snake from moving in both directions
     def up(self):
