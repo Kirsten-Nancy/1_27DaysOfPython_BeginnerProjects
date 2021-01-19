@@ -2,7 +2,7 @@ from turtle import Turtle
 
 SNAKE_START_POSITIONS = [(0.00, 0.00), (-10.00, 0.00), (-20.00, 0.00)]
 
-# Snake class has several turtles
+# Snake class has several turtles- has-a relationship
 class Snake:
     def __init__(self):
         self.snake_segments = []
@@ -32,6 +32,13 @@ class Snake:
             self.snake_segments[i].goto(position)
 
         self.snake_head.fd(10)
+
+    def reset(self):
+        for snake in self.snake_segments:
+            snake.goto(1000, 1000)
+        self.snake_segments.clear()
+        self.create_snake()
+        self.snake_head = self.snake_segments[0]
 
     # The conditional checks to prevent the snake from moving in both directions
     def up(self):
