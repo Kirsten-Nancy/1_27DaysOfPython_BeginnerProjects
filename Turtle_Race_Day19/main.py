@@ -1,57 +1,63 @@
-from turtle import Screen, Turtle
 import random
-# Create the winner to be displayed
+import time
+from turtle import Screen, Turtle
 
-turtle_colors = ["maroon4", "pink", "cyan", "red", "yellow", "green", "black"]
+from named_turtle import CustomTurtle
+
+colors = ["Yellow", "Indigo", "Blue", "DeepPink", "RosyBrown", "MediumSpringGreen","red"]
+
 screen = Screen()
-
-screen.update()
 screen.setup(width=600, height=600)
-screen.bgcolor('lavender')
-screen.title("Welcome to our esteemed Turtle Race")
-winner = Turtle()
-winner.hideturtle()
-race_active = False
+screen.colormode(255)
+screen.title('Turtle Race')
+screen.tracer(0)
 
-player_bet = screen.textinput(title="Make a bet ladies and gentlemen", prompt="Who are you betting on this fine day")
-def create_turtle(my_turtle_name, y_pos, color):
-    # print(my_turtle_name)
-    my_turtle_name = Turtle(shape="turtle")
-    my_turtle_name.penup()
-    my_turtle_name.hideturtle()
-    my_turtle_name.speed(0)
-    my_turtle_name.showturtle()
-    my_turtle_name.color(color)
-    my_turtle_name.goto(-290, -150 + y_pos)
-    return my_turtle_name
+turtles = [CustomTurtle(name) for name in ("Audrey", "Dad", "Jeff", "Korir", "Isa", "Sarah", "Mesh")]
+
+player_bet = screen.textinput(title="Make a bet ladies and gentlemen", prompt="Enter player name")
+
+for i in range(len(turtles)):
+    turtle = turtles[i]
+    turtle.shape('turtle')
+    turtle.penup()
+    turtle.color(colors[i])
+    turtle.goto(-280, -150 + i * 50)
+screen.update()
+
+def draw_lines(initial_pos, angle):
+    lines = []
+    for j in range(14):
+        finishing_line = Turtle('square')
+        finishing_line.penup()
+        finishing_line.goto(initial_pos)
+        finishing_line.color('black')
+        finishing_line.setheading(angle)
+        finishing_line.color('black')
+        finishing_line.fd(j * 40)
+        lines.append(finishing_line)
 
 
-turtle_names = ["Dad", "Jeff", "Korir", "Isa", "Sarah", "Mesh", "Audrey", ]
+for _ in range(2):
+    draw_lines((240, 270), 270)
+    draw_lines((260, -270), 90)
 
-turtle_objects = []
-for i in range(7):
-    turtle_objects.append(create_turtle(turtle_names[i], i * 50, turtle_colors[i]))
+race_is_active = True
 
-race_active = True
+win_index = 0
 
-my_index = 0
-while race_active:
-    for turtle in turtle_objects:
-        if turtle.xcor() > 280:
-            winner_index = turtle_objects.index(turtle)
-            my_index = winner_index
-            if turtle_names[winner_index] == player_bet:
-                print("You won the magnificent race!")
+while race_is_active:
+    for turtle in turtles:
+        time.sleep(0.001)
+        screen.update()
+        if turtle.xcor() > 210:
+            turtle.hideturtle()
+            turtle.goto(-100, 0)
+            if turtle.name == player_bet:
+                turtle.write('You win race 🥳 ', align='left', font=("Verdana", 12, "bold"))
             else:
-                print(f"Sorry you lose, the winner was {turtle_names[winner_index]}")
-                # TODO: display the winner o screen
-                # ToDO: gif to occupy entire screen
-            print(turtle.pencolor())
-            race_active = False
-        turtle.fd(random.randint(0, 10))
-print(my_index)
-
-winner.write(f"The winner is {turtle_names[my_index]}", align='center', font=('Arial',12,'bold'))
+                turtle.write(f'{turtle.name} wins the race', align='left', font=("Verdana", 12, "bold"))
+            race_is_active = False
+        turtle.forward(random.randint(1, 10))
 
 
 screen.exitonclick()
