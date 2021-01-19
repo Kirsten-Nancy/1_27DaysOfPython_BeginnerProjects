@@ -14,3 +14,5 @@ while quiz_brain.more_questions_available():
 
 print("You have completed the quiz")
 print(f"Your final score was: {quiz_brain.score}/{len(quiz_brain.question_list)}")
+
+# TODO: Write the highest score in file to be read later
